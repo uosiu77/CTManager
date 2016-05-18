@@ -1,0 +1,199 @@
+<?php
+SassCompiler::run("scss/", "css/");
+?>
+<!DOCTYPE html>
+<html lang="en-US" ng-app="seamanRecords">
+    <head>
+        <title>CTM//Seamen edit test</title>
+
+        <!-- Load Bootstrap CSS -->
+        <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+		<div id="page" class="container-fluid">
+	
+			<header id="topHeader" class="row sidebar_color"> 
+				<div id="logo" class="col-sm-2 center"> 
+					<img src="imgs/logo-160.png" alt="C&T Marine Consultants"/>
+				</div>
+				
+				<div id="topMenu" class="col-sm-8">
+					menu
+				</div>
+				
+				<div id="topLoginInfo" class="col-sm-2">
+					credientials
+				</div>
+			</header> 
+		
+			<div id="workplace" class="row">
+			
+				<aside id="leftSidebar"  class="col-sm-2 sidebar ">
+					<div ng-include="'left.php'"></div>
+				</aside>
+			
+				<section id="middleSection"  class="col-sm-8">
+							
+					<h2>Seamen Database</h2>
+					<div  ng-controller="seamenController">
+
+						<!-- Table-to-load-the-data Part -->
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Surname</th>
+									<th>Forename</th>
+									<th>PESEL</th>
+									<th>Place of Birth</th>
+									<th>Rank</th>
+									<th>Nationality</th>
+									<th>GIODO</th>
+									<th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">Add New Seaman</button></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="seaman in seamen">
+									<td>{{ seaman.id }}</td>
+									<td>{{ seaman.surname }}</td>
+									<td>{{ seaman.forename }}</td>
+									<td>{{ seaman.pesel }}</td>
+									<td>{{ seaman.place_of_birth }}</td>
+									<td>{{ seaman.rank }}</td>
+									<td>{{ seaman.nationality_id }}</td>
+									<td>{{ seaman.giodo }}</td>
+									<td>
+										<button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', seaman.id)">Edit</button>
+										<button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(seaman.id)">Delete</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- End of Table-to-load-the-data Part -->
+						<!-- Modal (Pop up when detail button clicked) -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+										<h4 class="modal-title" id="myModalLabel">{{form_title}}</h4>
+									</div>
+									<div class="modal-body">
+										<form name="frmSeamen" class="form-horizontal" novalidate="">
+
+											<div class="form-group error">
+												<label for="inputEmail3" class="col-sm-3 control-label">Surname</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control has-error" id="surname" name="surname" placeholder="Surname" value="{{surname}}" 
+													ng-model="seaman.surname" ng-required="true">
+													<span class="help-inline" 
+													ng-show="frmSeamen.surname.$invalid && frmSeamen.surname.$touched">Surname field is required</span>
+												</div>
+											</div>
+											
+											<div class="form-group error">
+												<label for="inputEmail3" class="col-sm-3 control-label">Forename</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control has-error" id="forename" name="forename" placeholder="Forename" value="{{forename}}" 
+													ng-model="seaman.forename" ng-required="true">
+													<span class="help-inline" 
+													ng-show="frmSeamen.forename.$invalid && frmSeamen.forename.$touched">Forename field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputPESEL3" class="col-sm-3 control-label">PESEL</label>
+												<div class="col-sm-9">
+													<input type="pesel" class="form-control" id="pesel" name="pesel" placeholder="PESEL Number" value="{{pesel}}" 
+													ng-model="seaman.pesel" ng-required="true">
+													<span class="help-inline" 
+													ng-show="frmSeamen.pesel.$invalid && frmSeamen.pesel.$touched">Valid PESEL field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputEmail3" class="col-sm-3 control-label">Date of birth</label>
+												<div class="col-sm-9">
+													<md-datepicker ng-model="seaman.date_of_birth" md-placeholder="Date of Birth" id="date_of_birth" name="date_of_birth" value="{{date_of_birth}}"></md-datepicker>
+													<!--<input type="text" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Date of Birth" value="{{date_of_birth}}" 
+													ng-model="seaman.date_of_birth" ng-required="true">-->
+												<span class="help-inline" 
+													ng-show="frmSeamen.date_of_birth.$invalid && frmSeamen.date_of_birth.$touched">Date of birth field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputEmail3" class="col-sm-3 control-label">Place of birth</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="place_of_birth" name="place_of_birth" placeholder="Place of Birth" value="{{place_of_birth}}" 
+													ng-model="seaman.place_of_birth" ng-required="true">
+												<span class="help-inline" 
+													ng-show="frmSeamen.place_of_birth.$invalid && frmSeamen.place_of_birth.$touched">Place of birth field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputEmail3" class="col-sm-3 control-label">Rank</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="rank_id" name="rank_id" placeholder="Seman's Rank" value="{{rank_id}}" 
+													ng-model="seaman.rank_id" ng-required="true">
+												<span class="help-inline" 
+													ng-show="frmSeamen.rank_id.$invalid && frmSeamen.rank_id.$touched">Rank field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputEmail3" class="col-sm-3 control-label">Nationality</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="nationality_id" name="nationality_id" placeholder="Nationality" value="{{nationality_id}}" 
+													ng-model="seaman.nationality_id" ng-required="true">
+												<span class="help-inline" 
+													ng-show="frmSeamen.nationality_id.$invalid && frmSeamen.nationality_id.$touched">nationality field is required</span>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputEmail3" class="col-sm-3 control-label">GIODO</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="giodo" name="giodo" placeholder="GIODO" value="{{giodo}}" 
+													ng-model="seaman.giodo" ng-required="true">
+												<span class="help-inline" 
+													ng-show="frmSeamen.giodo.$invalid && frmSeamen.giodo.$touched">nationality field is required</span>
+												</div>
+											</div>
+
+											
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmSeamen.$invalid">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section> <!-- #middleSection -->
+				
+				<aside id="rightSidebar" class="col-sm-2 sidebar sidebar_color">
+					<div ng-include="'right.php'"></div>
+				</aside> <!-- #rightSidebar -->
+			
+			</div> <!-- workplace -->
+			
+			<footer class="row sidebar_color">
+			dis is the end
+			</footer>
+			
+		</div> <!-- #page -->
+
+        <!-- Load Javascript Libraries (AngularJS, JQuery, Bootstrap) -->
+        <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
+        <script src="<?= asset('js/jquery-2.2.0.min.js') ?>"></script>
+        <script src="<?= asset('js/bootstrap.min.js') ?>"></script>
+        
+        <!-- AngularJS Application Scripts -->
+        <script src="<?= asset('app/app.js') ?>"></script>
+        <script src="<?= asset('app/controllers/seamen.js') ?>"></script>
+    </body>
+</html>

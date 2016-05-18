@@ -1,0 +1,130 @@
+/* 
+	plan:
+	
+	seamenListController ($scope, seamenFactory) - basic seamen listing
+	seamanDetailsController - details, edit, delete etc.
+
+ */
+
+
+ctManagerApp.controller('seamenListController', function($scope, $http, API_URL, $location) {
+    //retrieve seamen listing from API
+    $http.get(API_URL + "seamen")
+            .success(function(response) {
+				//console.log('seamenListController response: '+angular.toJson(response, 1));
+                $scope.seamen = response;
+            });
+			
+/* 	$scope.go = function ( path ) {
+		console.log( "seamenListController go path:" + path );
+		console.log( "seamenListController go :" +  );
+		$location.path( path );
+	}; */
+});
+
+
+ctManagerApp.controller('seamenDetailsController', function($scope, $http, API_URL, $routeParams) {
+
+	var id = "";
+
+	// jeśli w URL nie podano ID seamana, to wyrzucamy błąd
+	// trzeba w tej sytuacji przekierować do listingu głównego
+	if( $routeParams.seamanID != undefined )
+	{
+		var id = '/' + $routeParams.seamanID;
+		console.log('param id: '+id);
+	}
+	else{
+		// jak nie ma ID, to routeProvider nie powinien nas tu wpuścić
+		return false;
+	}
+
+    //retrieve seaman details from API
+    $http.get(API_URL + "seamen" + id)
+            .success(function(response) {
+				//console.log('seamenDetailsController response: ' + angular.toJson(response, 1));
+                $scope.seaman = response;
+				console.log('scope.seaman: ' + angular.toJson($scope.seaman, 1));
+            });
+			
+    //show modal form
+	
+    $scope.toggle = function(modalstate, id) {
+        $scope.modalstate = modalstate;
+
+        switch (modalstate) {
+            case 'add':
+                $scope.form_title = "Add New Seaman";
+                break;
+            case 'edit':
+                $scope.form_title = "Seaman Details";
+                $scope.id = id;
+                $http.get(API_URL + 'seamen/' + id)
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.seaman = response;
+                        });
+                break;
+            default:
+                break;
+        }
+        console.log(id);
+        $('#myModal').modal('show');
+    }
+
+    //save new record / update existing record
+    $scope.save = function(modalstate, id) {
+        var url = API_URL + "seamen";
+        
+        //append seaman id to the URL if the form is in edit mode
+        if (modalstate === 'edit'){
+            url += "/" + id;
+        }
+        
+        $http({
+            method: 'POST',
+            url: url,
+            data: $.param($scope.seaman),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(response) {
+            console.log(response);
+            location.reload();
+        }).error(function(response) {
+            console.log(response);
+            alert('This is embarassing. An error has occured. Please check the log for details');
+        });
+    }
+
+    //delete record
+    $scope.confirmDelete = function(id) {
+        var isConfirmDelete = confirm('Are you sure you want this record?');
+        if (isConfirmDelete) {
+            $http({
+                method: 'DELETE',
+                url: API_URL + 'seamen/' + id
+            }).
+                    success(function(data) {
+                        console.log(data);
+                        location.reload();
+                    }).
+                    error(function(data) {
+                        console.log(data);
+                        alert('Unable to delete');
+                    });
+        } else {
+            return false;
+        }
+    }
+});
+
+
+
+ctManagerApp.controller('NavbarController', function ($scope, $location) {
+    $scope.getClass = function (path) {
+        if ($location.path().substr(0, path.length) == path) {
+            return true
+        } else {
+            return false;
+        }
+    }
+});

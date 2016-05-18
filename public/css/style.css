@@ -1,0 +1,143 @@
+html, body {
+  background-color: #e4e4e4;
+  height: 100%;
+}
+.sidebar_color, .sidebar, #workplace {
+  background-color: #ccc;
+}
+.center {
+  text-align: center;
+}
+a.inactive {
+  pointer: crosshair;
+}
+.btn {
+  border-radius: 0 !important;
+}
+.btn-disabled {
+  background: #fafafa;
+  color: #bfbfbf;
+}
+#topMenu {
+  padding-top: 15px;
+  padding-left: 0;
+}
+#topHeader {
+  padding: 10px 0 10px 0;
+}
+.sidebar {
+  min-height: 300px;
+  height: 100%;
+}
+#middleSection {
+  background-color: #e4e4e4;
+}
+#middleSection #pagination-wrapper {
+  position: relative;
+  min-height: 34px;
+  margin-top: 1px;
+}
+#middleSection #pagination-wrapper a:last-child {
+  position: absolute;
+  right: 0;
+}
+header#navSecondaryRow {
+  position: relative;
+}
+header#navSecondaryRow > * {
+  padding: 10px;
+}
+header#navSecondaryRow strong {
+  padding: 10px;
+  display: inline-block;
+}
+header#navSecondaryRow a {
+  background: #337ab7;
+  color: #e4e4e4;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+header#navSecondaryRow a.btn {
+  margin-left: -3px;
+}
+header#navSecondaryRow a:hover {
+  background: #0c0;
+  color: #fff;
+}
+header#navSecondaryRow button {
+  float: right;
+  padding: 10px;
+  border-radius: 0;
+  margin-left: 1px;
+}
+.resourceLoop .resourceListRow {
+  position: relative;
+  left: 0px;
+  overflow: auto;
+  background: #797979;
+  color: #fff;
+  padding: 10px;
+  font-family: "Consolas";
+  font-size: 1.7rem;
+  border-top: 1px solid #ccc;
+  transition: all 0.5s;
+}
+.resourceLoop .resourceListRow span {
+  display: inline-block;
+  margin-right: 10px;
+}
+.resourceLoop .resourceListRow span.seamanSurname {
+  font-weight: bold;
+  font-size: 2rem;
+}
+.resourceLoop .resourceListRow:nth-child(odd) {
+  background: #868686;
+}
+.resourceLoop .resourceListRow:hover {
+  position: relative;
+  background: #666;
+  cursor: pointer;
+  left: 2px;
+}
+.resourceLoop .resourceListHeader {
+  background: #333;
+  position: relative;
+  padding-left: 10px;
+  left: 0px;
+  overflow: auto;
+  color: #fff;
+  font-size: 1rem;
+}
+#seamanDetailsHead {
+  overflow: auto;
+  background: #868686;
+  color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#seamanDetailsHead .row {
+  margin-bottom: 10px;
+}
+#seamanDetailsHead .glyphicon {
+  margin-right: 10px;
+}
+#seamanDetailsHead .seamanSurname {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#seamanDetailsHead .seamanForename {
+  font-size: 3rem;
+}
+#seamanDetailsHead .seamanRank {
+  font-size: 3rem;
+  font-weight: bold;
+}
+#seamanDetailsPersonal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#seamanDetailsPersonal h4 {
+  font-weight: bold;
+}

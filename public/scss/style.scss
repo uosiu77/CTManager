@@ -1,0 +1,215 @@
+$color_background: #E4E4E4;
+$color_bars: #cccccc;
+$color_dark1: #797979;
+$color_dark2: #868686;
+$color_dark3: #666;
+$color_dark4: #333;
+
+$color_blue: #E4E4E4;
+$color_lightblue: #337ab7;;
+$color_green: #00cc00;
+$color_black: #000;
+$color_red: #f00;
+
+$patch_imgs: "/imgs/";
+
+$padding: 10px;
+
+$font-listing: "Consolas";
+$font-listing-size-small: 1rem;
+$font-listing-size: 1.7rem;
+$font-listing-size-big: 2rem;
+$font-listing-size-huge: 3rem;
+
+html,body {
+    background-color: $color_background;
+	height: 100%;
+}
+
+.sidebar_color{
+    background-color: $color_bars;
+}
+
+.center{
+	text-align: center;
+}
+
+a{
+	&.inactive{
+		pointer: crosshair;
+		
+	}
+}
+
+.btn{
+	border-radius: 0!important;
+}
+
+.btn-disabled{
+	background: #fafafa; 
+	color: #bfbfbf;
+}
+
+#topMenu{
+	padding-top: 15px;
+	padding-left: 0;
+}
+
+#topHeader{
+	
+	padding: $padding 0 $padding 0 ;
+	
+	#logo{
+		
+	}
+}
+
+.sidebar{
+	@extend .sidebar_color;
+	min-height:300px;
+	height:100%;
+}
+
+#workplace{
+	@extend .sidebar_color;
+}
+
+#middleSection{
+	background-color: $color_background;
+	
+	#pagination-wrapper{
+		position:relative;
+		min-height: 34px;
+		margin-top: 1px;
+		a:last-child{
+			position: absolute;
+			right: 0;
+		}
+	}
+}
+
+
+header#navSecondaryRow{
+		
+		position: relative;
+		> *{
+			padding: $padding; 			
+		}
+		
+		strong{
+			padding: $padding;
+			display: inline-block;
+		}
+		
+		a{
+			background: $color_lightblue;
+			color: $color_blue;
+			display: inline-block;
+			padding: $padding;
+			cursor:pointer;
+			
+			&.btn{
+				margin-left: -3px;
+			}
+			
+			&:hover{
+				background: $color_green;
+				color: #fff;
+			}
+		}
+		
+		button{
+			float: right;
+			padding: $padding;
+			border-radius: 0;
+			margin-left: 1px;
+		}
+	}
+
+.resourceLoop{
+	.resourceListRow{
+		position: relative;
+		left: 0px;
+		overflow: auto;
+		background: $color-dark1;
+		color: #fff;
+		padding: $padding;
+		font-family: $font-listing;
+		font-size: $font-listing-size;
+		border-top: 1px solid $color_bars;
+		transition: all 0.5s;
+		
+		
+		span{
+			display: inline-block;
+			margin-right: $padding;
+			&.seamanSurname{
+				font-weight: bold;
+				font-size: $font-listing-size-big;
+			}
+		}
+		&:nth-child(odd){
+			background: $color-dark2;
+		}
+		&:hover{
+			position: relative;
+			background: $color_dark3;
+			cursor: pointer;
+			left: 2px;
+		}
+	}
+	
+	.resourceListHeader{
+		background: $color_dark4;
+		position: relative;
+		padding-left: $padding;
+		left: 0px;
+		overflow: auto;
+		color: #fff;
+		font-size: $font-listing-size-small;
+	}
+}
+	
+
+#seamanDetailsHead{
+	overflow: auto;
+	background: $color_dark2;
+	color: #fff;
+	padding-top: $padding; 
+	padding-bottom: $padding; 
+	
+		
+	.row{
+		margin-bottom: $padding;
+	}
+	
+	.glyphicon{
+		margin-right: $padding;
+	}
+	
+	.seamanSurname{
+		font-size: $font-listing-size-huge;
+		font-weight: bold;
+		text-transform: uppercase;
+
+	}
+	
+	.seamanForename{
+		font-size: $font-listing-size-huge;
+
+	}
+	
+	.seamanRank{
+		font-size: $font-listing-size-huge;
+		font-weight: bold;
+	}
+}
+
+#seamanDetailsPersonal{
+	padding-top: $padding;
+	padding-bottom: $padding;
+	
+	h4{
+		font-weight: bold;
+	}
+}
