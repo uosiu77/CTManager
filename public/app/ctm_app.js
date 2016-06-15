@@ -3,16 +3,47 @@ var ctManagerApp = angular.module('ctManager', ['ngRoute', 'ngAnimate', 'angular
 
 /* ROUTES */
 var urlBase = 'app/partials/';
-		
-ctManagerApp.config(function ($routeProvider) {
+
+ctManagerApp.run(function( $rootScope, authFactory ){
+	
+	if ( !authFactory.checkUserAuth() )
+	{
+		authFactory.redirectToAuth();
+	}
+	else
+	{
+		authFactory.refreshRootScopeInfo();	
+	}
+	
+})
+
+	 
+ctManagerApp.config(function ($routeProvider, $authProvider, $httpProvider) {
+
+
+	// Push the new factory onto the $http interceptor array
+	//$httpProvider.interceptors.push('redirectWhenLoggedOut');
+
+
+	// Satellizer configuration that specifies which API
+	// route the JWT should be retrieved from
+	$authProvider.baseUrl =  '/ctmanager/public';
+	$authProvider.loginUrl =  '/api/v1/authenticate';
 	
 	$routeProvider
 		.when('/',
 			{
+				//redirectTo: '/auth', 
 				controller: 'seamenListController',
  				templateUrl: urlBase + 'seamen_list.php'
 				
-			})
+			})		
+		.when('/auth',
+			{
+				controller: 'AuthController',
+ 				templateUrl: urlBase + 'auth_view.php'
+				
+			})	
 		.when('/admin',
 			{
 				redirectTo: 'admin/Users'
@@ -20,8 +51,8 @@ ctManagerApp.config(function ($routeProvider) {
 			})
 		.when('/admin/Users',
 			{
-				controller: 'adminController',
- 				templateUrl: urlBase + 'admin.php'
+				controller: 'UserController',
+ 				templateUrl: urlBase + 'user_list.php'
 				
 			})
 		.when('/seamenList',
@@ -98,3 +129,12 @@ ctManagerApp.filter('abs', function () {
     return Math.abs(val);
   }
 });
+
+
+// slight update to account for browsers not supporting e.which
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+// To disable f5
+    /* jQuery < 1.7 */
+$(document).bind("keydown", disableF5);
+/* OR jQuery >= 1.7 */
+$(document).on("keydown", disableF5);	

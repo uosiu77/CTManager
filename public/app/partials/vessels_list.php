@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-if="authenticated">
 
 	<header id="navSecondaryRow">
 		<a class="inactive"><span class="glyphicon glyphicon-home"></span></a>

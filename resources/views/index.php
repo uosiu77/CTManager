@@ -15,7 +15,7 @@ SassCompiler::run("scss/", "css/");
 		
 			<div id="workplace" class="row">
 			
-				<aside id="leftSidebar"  class="col-sm-2 sidebar ">
+				<aside id="leftSidebar"  class="col-sm-2 sidebar " ng-if="authenticated">
 					<div ng-include="'app/partials/main_left.php'"></div>
 				</aside>
 			
@@ -25,14 +25,14 @@ SassCompiler::run("scss/", "css/");
 					
 				</section> <!-- #middleSection -->
 				
-				<aside id="rightSidebar" class="col-sm-2 sidebar sidebar_color">
+				<aside id="rightSidebar" class="col-sm-2 sidebar sidebar_color" ng-if="authenticated">
 					<div ng-include="'app/partials/main_right.php'"></div>
 				</aside> <!-- #rightSidebar -->
 			
 			</div> <!-- workplace -->
 			
 			<footer class="row sidebar_color">
-			dis is the end
+				C&T Marine Consultants (c) <?php echo date('Y');?>
 			</footer>
 			
 		</div> <!-- #page -->
