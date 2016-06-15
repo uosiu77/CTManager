@@ -1,3 +1,64 @@
+ctManagerApp.controller('UserController', function ($scope, $http, usersFactory, $rootScope) {
+	
+	console.log("it's UserController and this is the rootScope: ");
+	console.log( $rootScope.currentUser );
+	console.log( $rootScope );
+	
+	$scope.getUsers = function() {
+	
+		usersFactory.getUsers()
+				.success( function( goodResponse ) {
+					$scope.users = goodResponse;
+					console.log("goodResponse!");
+					console.log(goodResponse);
+				}).error( function( badResponse ) {
+					console.log("badResponse :(");
+					console.log(badResponse);
+					$scope.error = badResponse;
+				});
+	}
+		
+});	
+	
+
+
+ctManagerApp.controller('AuthController', function ($scope, $http, $rootScope, authFactory) {
+
+        $scope.loginError = false;
+        $scope.loginErrorText;
+		
+		console.log( 'AuthController start. going to check if userAuth == true in local storage' );
+		//jeśli user jest zalogowany, nie ma czego tu szukać
+		if( authFactory.checkUserAuth() ){
+			window.location.href = '/ctmanager/public/#/seamenList';
+		}
+		
+		$scope.logout = function(){
+		
+			console.log( 'logging out' );
+		
+			authFactory.logoutUser();
+			
+		}
+		
+        $scope.login = function() {
+
+			console.log('login clicked');
+		
+            var credentials = {
+                username: $scope.username,
+                password: $scope.password
+            }
+            
+			console.log( credentials );
+			
+			authFactory.logUser( credentials );
+			
+        }
+
+});
+
+
 ctManagerApp.controller('seamenListController', function($scope, $http, seamenFactory) {
     
 	//$scope.parseInt = parseInt;
@@ -84,27 +145,6 @@ ctManagerApp.controller('vesselsListController', function($scope, $http, vessels
 	
 });
 
-/* ctManagerApp.controller('AuthController', function ($auth, $state) {
-
-        var vm = this;
-            
-        vm.login = function() {
-
-            var credentials = {
-                email: vm.email,
-                password: vm.password
-            }
-            
-            // Use Satellizer's $auth service to login
-            $auth.login(credentials).then(function(data) {
-
-                // If login is successful, redirect to the users state
-                $state.go('users', {});
-            });
-        }
-
-    });
- */
 
 /* 
 

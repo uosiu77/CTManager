@@ -1,4 +1,4 @@
-<div ng-controller="searchController">
+<div ng-if="authenticated" ng-controller="searchController">
 	<section id="searchBar" class="col-lg-12">
 		<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  ng-model="searchKeyword" placeholder="search surname..." value="{{searchKeyword}}" 
 	</section> <!-- searchBar -->

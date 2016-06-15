@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-if="authenticated">
  
 	<header id="navSecondaryRow">
 		<a redirect="seamenList"><span class="glyphicon glyphicon-arrow-left"></span></a>
